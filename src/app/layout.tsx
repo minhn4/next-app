@@ -1,11 +1,10 @@
 import "@/styles/globals.css";
 
 import { Inter } from "next/font/google";
-import { cookies } from "next/headers";
+
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import { Providers } from "./providers";
-import SidebarWithHeader from "@/components/navigation/SidebarWithHeader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,8 +13,8 @@ const inter = Inter({
 
 export const metadata = {
   title: "Quickbeard",
-  description: "For research purposes",
-  icons: [{ rel: "icon", url: "favicon.ico" }],
+  description: "Quickbeard",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default function RootLayout({
@@ -26,10 +25,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <TRPCReactProvider cookies={cookies().toString()}>
-          <Providers>
-            <SidebarWithHeader>{children}</SidebarWithHeader>
-          </Providers>
+        <TRPCReactProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </TRPCReactProvider>
       </body>
     </html>

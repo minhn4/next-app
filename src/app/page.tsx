@@ -1,9 +1,15 @@
-import { Box } from "@chakra-ui/react";
+import { ThemeToggle } from "@/components/buttons/ThemeToggle";
+import DemoMultiSelect from "@/components/DemoMultiSelect";
 
-export default function Home() {
+import { auth } from "@/server/auth";
+
+export default async function Home() {
+  const session = await auth();
+
   return (
-    <Box ml={{ base: 0, md: 60 }} p="4">
-      Hello
-    </Box>
+    <>
+      <ThemeToggle />
+      <DemoMultiSelect />
+    </>
   );
 }
